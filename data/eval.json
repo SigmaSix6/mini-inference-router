@@ -1,0 +1,251 @@
+{
+  "seed": 20261003,
+  "source": "bitext/Bitext-customer-support-llm-chatbot-training-dataset",
+  "cases": [
+    {
+      "instruction": "question about cancelling order {{Order Number}}",
+      "intent": "cancel_order",
+      "id": "eval_cancel_order_1",
+      "split": "heldout",
+      "reference": "I've understood you have a question regarding canceling order {{Order Number}}, and I'm here to provide you with the information you need. Please go ahead and ask your question, and I'll do my best to assist you."
+    },
+    {
+      "instruction": "how to swap several items of purchase {{Order Number}}",
+      "intent": "change_order",
+      "id": "eval_change_order_1",
+      "split": "heldout",
+      "reference": "Thank you for your message to us for assistance with swapping several items in your purchase with the number {{Order Number}}. We understand the importance of having the right products in your order. To proceed with the swap, here's what you can do:\n\n1. Review the items in your purchase: Go to your purchase details page and take note of the items you want to swap.\n\n2. Contact our customer support: Reach out to our dedicated support team via phone or online chat and provide them with your purchase number and the specific items you wish to swap. They will guide you through the process, answer any questions you may have, and assist you in finding suitable replacements.\n\n3. Return and reorder: Depending on our return policy, you may have the option to return the items you want to swap and place a new order for the desired products. Our customer support team will provide you with more information on how to proceed.\n\nPlease keep in mind that availability and eligibility for replacements may vary based on factors such as stock availability, the condition of the items, and our return policy. Our dedicated support team will work closely with you to ensure a smooth swapping process and address any concerns you may have."
+    },
+    {
+      "instruction": "I have entered a wrong shipping address, I want to modify it",
+      "intent": "change_shipping_address",
+      "id": "eval_change_shipping_address_1",
+      "split": "heldout",
+      "reference": "No worries! I can help you with that. To modify your shipping address, please log in to your account on our website and go to the \"My Account\" section. From there, you can update your shipping address with the correct information. If you encounter any issues or need further assistance, feel free to reach out to our customer support team. We'll be happy to assist you!"
+    },
+    {
+      "instruction": "I don't know what I have to do to see the early exit fee",
+      "intent": "check_cancellation_fee",
+      "id": "eval_check_cancellation_fee_1",
+      "split": "heldout",
+      "reference": "No problem! To view the early exit fee, you can contact our customer support team or check the terms and conditions section on our website. They will be able to provide you with the necessary information regarding the early exit fee for your account."
+    },
+    {
+      "instruction": "help me to check my fucking bill from {{Person Name}}",
+      "intent": "check_invoice",
+      "id": "eval_check_invoice_1",
+      "split": "heldout",
+      "reference": "Thank you for trusting to us for assistance with checking your bill from {{Salutation}} {{Client Last Name}}. I understand the urgency and frustration you may be experiencing. To provide you with the most accurate information, could you please provide me with the bill number or any relevant details? Rest assured, I'm here to support you through this process and help resolve any issues you may have."
+    },
+    {
+      "instruction": "can you show me what goddamn payment options you accept?",
+      "intent": "check_payment_methods",
+      "id": "eval_check_payment_methods_1",
+      "split": "heldout",
+      "reference": "I'll do my best! I'm here to assist you in discovering the various payment options we offer. Allow me to present our accepted payment methods:\n\n- **Credit/Debit Card:** We gladly accept major cards, including Visa, Mastercard, and American Express, for seamless transactions.\n- **PayPal:** A widely recognized and secure online payment method, allowing you to make payments with ease.\n- **Bank Transfer:** Make direct payments from your bank account using this convenient method.\n- **Apple Pay:** For Apple enthusiasts, this option provides a quick and secure checkout experience.\n- **Google Wallet:** Benefit from Google's efficient payment system for fast and convenient checkouts.\n\nIf you have any specific questions regarding these payment options or need assistance in choosing the most suitable one for your needs, please feel free to let me know. I'm here to guide you every step of the way."
+    },
+    {
+      "instruction": "show your refund policy",
+      "intent": "check_refund_policy",
+      "id": "eval_check_refund_policy_1",
+      "split": "heldout",
+      "reference": "I'll take care of it! I understand that you want to have a clear understanding of our refund policy. At {{Company Name}}, we strive to provide a transparent and customer-friendly refund process. Here are a few key points to keep in mind:\n\n1. **Product/Service Defects:** If you encounter any issues or defects with the product or service you have purchased, please reach out to us immediately. We will be happy to assist you and may provide a refund based on the specific circumstances.\n\n2. **Cancellation within Grace Period:** If you change your mind about your purchase within the designated grace period, you may be eligible for a refund. The grace period varies depending on the product or service, so it's best to refer to the terms and conditions or contact our customer support for more information.\n\n3. **Unauthorized Charges:** If you notice any unauthorized charges on your account related to our products or services, please notify us as soon as possible. We take such cases seriously and will investigate the issue to resolve it promptly and ensure you receive a refund if necessary.\n\n4. **Event Cancellations:** In the unfortunate event of a cancellation or postponement of an event for which you purchased tickets through us, you will usually be eligible for a refund. However, please note that the refund policy may vary depending on the event organizer's terms and conditions.\n\n5. **Duplicate Charges:** If you discover duplicate charges for the same product or service, please inform us immediately. We will investigate the issue and rectify any billing errors promptly. You will be refunded for the duplicate charges.\n\n6. **Non-receipt of Goods/Services:** If you have not received the product or service within the expected time frame, please contact us. We will track the shipment or investigate the issue to ensure you receive the item or a refund.\n\nPlease remember that our refund policy may have specific terms and conditions that apply to certain products or services. We recommend reviewing the refund policy on our website or contacting our customer support team for detailed information.\n\nIf you have any specific questions regarding your order or any other concerns, please provide us with the necessary details, such as your order number or other relevant information, and we will be glad to assist you further.\n\nYour satisfaction is our priority, and we aim to provide a smooth and hassle-free refund process."
+    },
+    {
+      "instruction": "file consumer complaint",
+      "intent": "complaint",
+      "id": "eval_complaint_1",
+      "split": "heldout",
+      "reference": "I'm sorry to hear that you need to file a consumer complaint. Your feedback is valuable to us, and we take all concerns seriously. To ensure a thorough investigation, please provide us with detailed information regarding your complaint, such as the nature of the issue, any relevant documentation or evidence, and your desired resolution. Rest assured that our team will review your complaint promptly and work towards a fair resolution. We appreciate your patience as we strive to address your concerns effectively."
+    },
+    {
+      "instruction": "I want help to check what hours I can reach customer support",
+      "intent": "contact_customer_service",
+      "id": "eval_contact_customer_service_1",
+      "split": "heldout",
+      "reference": "Thank you for reaching out! Understanding the importance of connecting with our customer support team during suitable hours, I'm here to assist you. Our customer support team is available Monday to Friday from 8:00 AM to 8:00 PM and on Saturdays from 9:00 AM to 5:00 PM, local time. If you have any further questions or need assistance with anything else, please feel free to let me know."
+    },
+    {
+      "instruction": "how do I talk to somebody?",
+      "intent": "contact_human_agent",
+      "id": "eval_contact_human_agent_1",
+      "split": "heldout",
+      "reference": "We're here for you! I'm aware that you are looking for information on how to talk to somebody. To connect with a human representative, you can simply [provide the steps to reach the customer service team, such as mentioning a phone number, email, or live chat option]. Our dedicated team is available to assist you and provide personalized support. Please don't hesitate to reach out to us. We're here to help!"
+    },
+    {
+      "instruction": "where can I get information about opening a {{Account Type}} account?",
+      "intent": "create_account",
+      "id": "eval_create_account_1",
+      "split": "heldout",
+      "reference": "That's a great question! To get information about opening a {{Account Type}} account, you can visit our website or reach out to our customer support team. On our website, you'll find a dedicated page with all the details about the account opening process. It will provide step-by-step instructions, eligibility criteria, and the required documents. Alternatively, you can contact our customer support team through our helpline or live chat. Our agents will be more than happy to assist you and provide you with all the necessary information you need to open a {{Account Type}} account. We strive to make the process as seamless and convenient as possible for you. So, don't hesitate to reach out and explore the possibilities of opening a {{Account Type}} account with our company!"
+    },
+    {
+      "instruction": "I don't want my {{Account Type}} account, how could I close it?",
+      "intent": "delete_account",
+      "id": "eval_delete_account_1",
+      "split": "heldout",
+      "reference": "I can sense that you no longer wish to keep your {{Account Type}} account and would like to close it. I'm here to assist you with the necessary steps to accomplish this. To proceed with the account closure, please follow these instructions: access your account settings, navigate to the account section, and look for the option to close or delete your account. If you encounter any difficulties during this process, please don't hesitate to reach out to our customer support team, who will be more than happy to guide you through the account closure. Remember, we value your feedback and would appreciate any thoughts you might have on how we can improve our services in the future."
+    },
+    {
+      "instruction": "seeing the delivery methods",
+      "intent": "delivery_options",
+      "id": "eval_delivery_options_1",
+      "split": "heldout",
+      "reference": "Ahh, the quest for exploring delivery methods! Together, let's embark on this journey and unravel the secrets of our exceptional shipping options. Here's a glimpse into the marvelous choices that await you:\n\n1. Standard Shipping: For those who savor the anticipation, this option typically arrives within {{Date Range}} business days. The joy of patiently awaiting your package is its own reward.\n2. Expedited Shipping: In need of a swifter arrival? Choose this option, and your items will be in your hands in just {{Date Range}} business days.\n3. Overnight Shipping: For the true connoisseurs of instant gratification, this option ensures that your awaited treasures are delivered the next business day.\n4. In-Store Pickup: If you crave immediate satisfaction and enjoy a personal touch, our {{Store Location}} eagerly await your arrival to handpick your items.\n\nEvery choice holds its unique allure, tailored to suit your desires. I'm curious, have you ever taken advantage of one of our delivery methods before? As you ponder over these options, remember that I'm here to provide any additional information or answer any questions that may arise. Let's make this delivery experience simply unforgettable!"
+    },
+    {
+      "instruction": "I want to see how long it tyakes for my package to arrive",
+      "intent": "delivery_period",
+      "id": "eval_delivery_period_1",
+      "split": "heldout",
+      "reference": "We understand your curiosity about the delivery timeframe of your package. To assist you further, could you please provide us with the {{Tracking Number}} or {{Order Number}}? This will enable us to provide you with an accurate estimate of the delivery time. We appreciate your cooperation in this matter."
+    },
+    {
+      "instruction": "editting details on premium account",
+      "intent": "edit_account",
+      "id": "eval_edit_account_1",
+      "split": "heldout",
+      "reference": "What an absolute delight it is to embark on the thrilling journey of editing the details on your esteemed premium account!I am here to provide you with my utmost support and guidance, ensuring that your account details accurately reflect your premium status and meet your evolving needs. Please be cautious and refrain from sharing any personal identifiers, such as your full account number or password, to maintain the security of your account. Let's dive into the specifics of the details you would like to modify, and together we will navigate this delightful endeavor."
+    },
+    {
+      "instruction": "where do I download my invoice from {{Person Name}}?",
+      "intent": "get_invoice",
+      "id": "eval_get_invoice_1",
+      "split": "heldout",
+      "reference": "I certainly recognize your need to download the invoice from {{Salutation}} {{Client Last Name}}. To access and download your invoice, please follow these steps:\n1. Log in to your account on our website.\n2. Go to the \"Billing\" or \"Invoices\" section.\n3. Look for the invoice labeled with the name \"{{Person Name}}\" or any related identification.\n4. Click on the download button or link next to the invoice details.\n5. Save the invoice to your preferred location on your device.\n\nIf you encounter any difficulties or have further questions, please don't hesitate to let me know. I'm here to help you every step of the way!"
+    },
+    {
+      "instruction": "I want help to demand a compensation",
+      "intent": "get_refund",
+      "id": "eval_get_refund_1",
+      "split": "heldout",
+      "reference": "I've grasped that you're seeking assistance in demanding a compensation, and I'm here to provide you with the support you need. Please allow me to assure you that your concerns are of utmost importance to us, and we want to find a satisfactory resolution for you. To begin, could you kindly provide me with more details about the situation that has led you to demand compensation? This will enable me to better understand the issue and guide you through the appropriate steps. Rest assured, together we will navigate through this process and strive to achieve a fair and favorable outcome for you."
+    },
+    {
+      "instruction": "i need help to cancel the newsletter subscription",
+      "intent": "newsletter_subscription",
+      "id": "eval_newsletter_subscription_1",
+      "split": "heldout",
+      "reference": "I grasp that you require assistance in canceling your newsletter subscription. Rest assured, I'm here to guide you through the process. To proceed with the cancellation, could you please provide me with the email address that you used to subscribe to our newsletter? This information will help me locate your subscription details and ensure a smooth cancellation experience for you. Thank you for reaching out to us, and I appreciate your patience as we work together to address your request."
+    },
+    {
+      "instruction": "where to report errors with online payment?",
+      "intent": "payment_issue",
+      "id": "eval_payment_issue_1",
+      "split": "heldout",
+      "reference": "I appreciate your inquiry about where to report errors with online payments. To ensure that we address your concern promptly and accurately, I recommend reaching out to our dedicated customer support team. They are specifically trained to handle payment-related issues and will be able to assist you in reporting any errors you may have encountered. You can contact them through our website's live chat feature or by calling our customer support hotline. Rest assured that we are here to help and resolve any payment problems you are facing."
+    },
+    {
+      "instruction": "I don't know what to do to order a few of your article",
+      "intent": "place_order",
+      "id": "eval_place_order_1",
+      "split": "heldout",
+      "reference": "Glad you contacted to us! It's completely understandable to feel unsure about the process of ordering our articles. Rest assured, I'm here to guide you every step of the way. To get started, you can visit our website and browse through our collection of articles. Once you find the ones you'd like to order, simply add them to your cart. If you have any questions or need assistance along the way, feel free to reach out to our customer support team, available {{Customer Support Hours}}, at {{Customer Support Phone Number}} or through the Live Chat on our website at {{Website URL}}. They will be more than happy to assist you with any queries or concerns you may have. We want your ordering experience to be smooth and effortless, so please don't hesitate to ask for help if needed. We look forward to serving you and ensuring your satisfaction with our articles!"
+    },
+    {
+      "instruction": "I am looking for information about a forgotten key",
+      "intent": "recover_password",
+      "id": "eval_recover_password_1",
+      "split": "heldout",
+      "reference": "I understand your concern about a forgotten key. Let's work together to find a solution. Could you please clarify if you are referring to a physical key or a password/key for accessing an account or service? Once I have this information, I will be able to assist you further in recovering or replacing the key."
+    },
+    {
+      "instruction": "want assistance to report a sign-up error",
+      "intent": "registration_problems",
+      "id": "eval_registration_problems_1",
+      "split": "heldout",
+      "reference": "We appreciate you seeking our assistance to report a sign-up error. We understand how frustrating it can be to encounter issues during the sign-up process, and we apologize for any inconvenience caused. To ensure that we address your concern effectively, could you kindly provide us with more details about the specific error you encountered? This will enable us to investigate the issue thoroughly and provide you with the most suitable solution. Your feedback is vital to us, and we are committed to resolving this matter promptly. Thank you for taking the time to reach out to us."
+    },
+    {
+      "instruction": "where do I leave a review for your services?",
+      "intent": "review",
+      "id": "eval_review_1",
+      "split": "heldout",
+      "reference": "We appreciate your interest in leaving a review for our services! Your feedback is essential to us. To leave a review, you can visit our website and navigate to the \"Reviews\" or \"Testimonials\" section. There, you will find a form or a link to an external review platform where you can share your experience. We look forward to hearing your thoughts and thank you for taking the time to share your feedback!"
+    },
+    {
+      "instruction": "i dont know how to set a different shipping address up",
+      "intent": "set_up_shipping_address",
+      "id": "eval_set_up_shipping_address_1",
+      "split": "heldout",
+      "reference": "I can relate to the understanding that you're unsure about how to set up a different shipping address. Don't worry, I'm here to help you every step of the way. To set a different shipping address, please follow these instructions:\n\n1. Log in to your account on our website.\n2. Go to the \"Account\" or \"Profile\" section.\n3. Look for the \"Shipping Addresses\" tab or a similar option.\n4. Click on it to manage your existing addresses.\n5. To add a new address, look for the \"Add a New Address\" or \"Create New Address\" button.\n6. Fill in the necessary details for your different shipping address, such as the recipient's name, street address, city, state, and postal code.\n7. Double-check the information for accuracy and click on \"Save\" to save your new shipping address.\n\nIf you encounter any difficulties or have further questions while setting up your different shipping address, please let me know, and I'll be glad to assist you further."
+    },
+    {
+      "instruction": "want assistance to switch to the premium account",
+      "intent": "switch_account",
+      "id": "eval_switch_account_1",
+      "split": "heldout",
+      "reference": "I'll get right on it! It's wonderful to hear that you are interested in switching to our esteemed {{Account Category}} account. Allow me to assist you with the process:\n\n1. Sign In: Start by logging into your account on our platform.\n2. Account Settings: Navigate to your '{{Settings}}' or '{{Profile}}' section.\n3. Upgrade Options: Within these sections, look for an option that says '{{Upgrade Account}}' or '{{Account Change}}'.\n4. Select {{Account Category}}: Choose the '{{Account Type}}' option from the available choices.\n5. Follow the Prompts: Follow the on-screen prompts to complete the process.\n\nIf you encounter any difficulties or if you have any further questions, please don't hesitate to reach out. We're here to ensure a seamless transition to your enhanced {{Account Category}} account. Enjoy the wide array of benefits that come with it!"
+    },
+    {
+      "instruction": "i do not know what to do to see the ETA of order {{Order Number}}",
+      "intent": "track_order",
+      "id": "eval_track_order_1",
+      "split": "heldout",
+      "reference": "Happy to hear from you! I truly understand that you're unsure about how to check the estimated time of arrival (ETA) for your order with the order number {{Order Number}}. To view the ETA, you can visit the '{{Online Order Interaction}}' section on our website or mobile app. In case you need more detailed instructions or encounter any difficulties, please don't hesitate to let me know. I'm here to guide you every step of the way!"
+    },
+    {
+      "instruction": "I'm waiting for a reimbursement of 350dollars",
+      "intent": "track_refund",
+      "id": "eval_track_refund_1",
+      "split": "heldout",
+      "reference": "I understand your anticipation for the reimbursement of {{Currency Symbol}}{{Refund Amount}}. I want to assure you that we value your request and are working diligently to process it. To provide you with an accurate update on the status of your reimbursement, could you please provide me with your order number or any other relevant information? This will allow me to quickly locate your request and provide you with the most up-to-date information. Thank you for your patience, and I'm here to help you throughout this process."
+    },
+    {
+      "instruction": "can you help me cancel order {{Order Number}}?",
+      "intent": "cancel_order",
+      "id": "eval_cancel_order_2",
+      "split": "heldout",
+      "reference": "Of course, I'm here to assist you in canceling your order with the number {{Order Number}}. Let's get this sorted out for you. \n\nPlease follow these steps:\n\n1. Sign in to your {{Online Company Portal Info}} using your credentials.\n2. Go to your '{{Online Order Interaction}}' or '{{Online Order Interaction}}' section, where you can find a record of all your purchases.\n3. Locate the order associated with the number {{Order Number}} and click on it to view the details.\n4. Look for the option to '{{Online Order Interaction}}' and select it to initiate the cancellation process.\n5. Follow any additional instructions or provide any necessary feedback as prompted by the system.\n\nShould you encounter any difficulties or have further questions, our dedicated support team is available to assist you. You can reach us during {{Customer Support Hours}} at {{Customer Support Phone Number}}, or you can connect with us using the Live Chat feature on our website at {{Website URL}}. We are committed to providing you with a satisfactory resolution and ensuring your utmost satisfaction."
+    },
+    {
+      "instruction": "can I modify purchase {{Order Number}}?",
+      "intent": "change_order",
+      "id": "eval_change_order_2",
+      "split": "heldout",
+      "reference": "I'm happy to help! I understand that you would like to modify your purchase with the order number {{Order Number}}. We are here to help you with that. Could you please provide more details on the specific changes you would like to make? This will allow us to assist you accurately and efficiently. Your satisfaction is our top priority, and we want to ensure that your modified purchase meets your expectations."
+    },
+    {
+      "instruction": "I chose a wrong address by mistake, I want to modify it",
+      "intent": "change_shipping_address",
+      "id": "eval_change_shipping_address_2",
+      "split": "heldout",
+      "reference": "I apologize for the inconvenience you've experienced with selecting the wrong delivery address. We understand the importance of ensuring accurate shipping information. To correct this issue, please provide us with the correct address so that we can update it for you. Thank you for bringing this to our attention, and we appreciate your understanding."
+    },
+    {
+      "id": "oos_weather",
+      "intent": null,
+      "instruction": "What's the weather in Lisbon tomorrow?",
+      "reference": "",
+      "split": "out_of_scope"
+    },
+    {
+      "id": "oos_poem",
+      "intent": null,
+      "instruction": "Write a short poem about the ocean at night.",
+      "reference": "",
+      "split": "out_of_scope"
+    },
+    {
+      "id": "oos_sports",
+      "intent": null,
+      "instruction": "Who won the 2019 world series?",
+      "reference": "",
+      "split": "out_of_scope"
+    },
+    {
+      "id": "oos_translate",
+      "intent": null,
+      "instruction": "Translate hello to Japanese.",
+      "reference": "",
+      "split": "out_of_scope"
+    },
+    {
+      "id": "oos_capital",
+      "intent": null,
+      "instruction": "What is the capital of Mongolia?",
+      "reference": "",
+      "split": "out_of_scope"
+    }
+  ]
+}
