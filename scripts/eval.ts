@@ -14,6 +14,12 @@ type EvalCase = {
   split: "heldout" | "out_of_scope"
 }
 
+type AttemptView = {
+  backend: string
+  status: string
+  error: string | null
+}
+
 type SseDone = {
   intent: string | null
   refused: boolean
@@ -26,15 +32,29 @@ type SseDone = {
   servedBy: string | null
   model: string | null
   fallbackFired: boolean
+  attempts?: AttemptView[]
 }
 
 const file = JSON.parse(readFileSync(resolve("data/eval.json"), "utf8")) as { cases: EvalCase[] }
 const base = process.env.EVAL_BASE_URL ?? "http://127.0.0.1:43123"
 const apiKey = process.env.EVAL_API_KEY ?? DEMO_TENANTS[0].apiKey
+const gapMs = Math.max(0, Number(process.env.EVAL_GAP_MS ?? "0") || 0)
 const configs = [
   { name: "fast-8b-class", forceTier: "fast" as const },
   { name: "quality-70b-class", forceTier: "quality" as const },
 ]
+
+function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
+
+function isRateLimit(text: string) {
+  return /429|rate[_ ]limit|too many requests|tokens per minute/i.test(text)
+}
+
+function rateLimited(done: SseDone) {
+  return (done.attempts ?? []).some((attempt) => attempt.error != null && isRateLimit(attempt.error))
+}
 
 async function runCase(item: EvalCase, forceTier: "fast" | "quality"): Promise<SseDone> {
   const response = await fetch(`${base}/api/v1/support/chat`, {
@@ -76,6 +96,26 @@ async function runCase(item: EvalCase, forceTier: "fast" | "quality"): Promise<S
   return done
 }
 
+async function runCasePaced(item: EvalCase, forceTier: "fast" | "quality"): Promise<SseDone> {
+  let lastError: unknown
+  for (let attempt = 0; attempt < 5; attempt++) {
+    try {
+      const done = await runCase(item, forceTier)
+      if (!rateLimited(done) || attempt === 4) return done
+      process.stdout.write("r")
+      await sleep(20_000 * (attempt + 1))
+    } catch (error) {
+      lastError = error
+      const message = error instanceof Error ? error.message : String(error)
+      const quota = message.includes("quota_exceeded")
+      if (quota || !isRateLimit(message) || attempt === 4) throw error
+      process.stdout.write("r")
+      await sleep(20_000 * (attempt + 1))
+    }
+  }
+  throw lastError instanceof Error ? lastError : new Error(`rate limited: ${item.id}`)
+}
+
 function summarize(name: string, rows: Array<{ item: EvalCase; done: SseDone }>) {
   const held = rows.filter((row) => row.item.split === "heldout")
   const oos = rows.filter((row) => row.item.split === "out_of_scope")
@@ -102,25 +142,41 @@ function summarize(name: string, rows: Array<{ item: EvalCase; done: SseDone }>)
     completion,
     outOfScope: oos.length,
     outOfScopeRefusalRate: oos.length ? oosRefused / oos.length : 0,
-    model: held[0]?.done.model ?? "unknown",
-    servedBy: held[0]?.done.servedBy ?? "unknown",
+    model: servedLabel(held),
+    servedBy: servedLabel(held),
   }
 }
 
+function servedLabel(rows: Array<{ done: SseDone }>) {
+  const counts = new Map<string, number>()
+  for (const row of rows) {
+    const label = `${row.done.servedBy ?? "none"} (${row.done.model ?? "none"})`
+    counts.set(label, (counts.get(label) ?? 0) + 1)
+  }
+  if (counts.size === 0) return "unknown"
+  if (counts.size === 1) return [...counts.keys()][0]
+  return [...counts.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .map(([label, count]) => `${label} ${count}/${rows.length}`)
+    .join("; ")
+}
+
 async function main() {
+  console.log(`eval base ${base} gap ${gapMs}ms judge ${process.env.EVAL_JUDGE === "1" ? "on" : "off"}`)
   const summaries = []
   const failures: string[] = []
   for (const config of configs) {
     const rows: Array<{ item: EvalCase; done: SseDone }> = []
     for (const item of file.cases) {
       try {
-        const done = await runCase(item, config.forceTier)
+        const done = await runCasePaced(item, config.forceTier)
         rows.push({ item, done })
         process.stdout.write(".")
       } catch (error) {
         failures.push(`${config.name} ${item.id}: ${error instanceof Error ? error.message : String(error)}`)
         process.stdout.write("x")
       }
+      if (gapMs > 0) await sleep(gapMs)
     }
     process.stdout.write("\n")
     const summary = summarize(config.name, rows)
@@ -138,12 +194,13 @@ async function meanJudge(rows: Array<{ item: EvalCase; done: SseDone }>): Promis
     if (row.item.split !== "heldout" || row.done.refused) continue
     const score = await judgeScore(row.item.reference, row.done.answer)
     if (score != null) scores.push(score)
+    if (gapMs > 0) await sleep(gapMs)
   }
   if (scores.length === 0) return null
   return scores.reduce((sum, score) => sum + score, 0) / scores.length
 }
 
-async function judgeScore(reference: string, answer: string): Promise<number | null> {
+async function judgeScore(reference: string, answer: string, attempt = 0): Promise<number | null> {
   const apiKey = process.env.GROQ_API_KEY?.trim()
   if (!apiKey) return null
   const model = process.env.GROQ_QUALITY_MODEL?.trim() || "openai/gpt-oss-120b"
@@ -156,7 +213,7 @@ async function judgeScore(reference: string, answer: string): Promise<number | n
     body: JSON.stringify({
       model,
       temperature: 0,
-      max_tokens: 16,
+      max_tokens: 256,
       messages: [
         {
           role: "system",
@@ -167,11 +224,20 @@ async function judgeScore(reference: string, answer: string): Promise<number | n
       ],
     }),
   })
+  if (response.status === 429 && attempt < 4) {
+    await sleep(20_000 * (attempt + 1))
+    return judgeScore(reference, answer, attempt + 1)
+  }
   if (!response.ok) return null
-  const body = (await response.json()) as { choices?: Array<{ message?: { content?: string } }> }
-  const text = body.choices?.[0]?.message?.content ?? ""
-  const match = text.match(/[1-5]/)
-  return match ? Number(match[0]) : null
+  const body = (await response.json()) as {
+    choices?: Array<{ message?: { content?: string; reasoning?: string } }>
+  }
+  const message = body.choices?.[0]?.message
+  const content = message?.content ?? ""
+  const fromContent = content.match(/[1-5]/)
+  if (fromContent) return Number(fromContent[0])
+  const fromReasoning = [...(message?.reasoning ?? "").matchAll(/[1-5]/g)].at(-1)
+  return fromReasoning ? Number(fromReasoning[0]) : null
 }
 
 function writeReport(
@@ -193,7 +259,7 @@ function writeReport(
     "| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
     ...summaries.map(
       (row) =>
-        `| ${row.name} | ${row.servedBy} (${row.model}) | ${(row.intentAccuracy * 100).toFixed(1)}% | ${(row.inScopeRefusalRate * 100).toFixed(1)}% | ${row.rougeL.toFixed(3)} | ${row.judgeMean == null ? "—" : row.judgeMean.toFixed(2)} | ${row.p50} | ${row.p95} | ${row.cost.toFixed(6)} | ${row.prompt} | ${row.completion} | ${(row.outOfScopeRefusalRate * 100).toFixed(1)}% (${row.outOfScope}) |`,
+        `| ${row.name} | ${row.servedBy} | ${(row.intentAccuracy * 100).toFixed(1)}% | ${(row.inScopeRefusalRate * 100).toFixed(1)}% | ${row.rougeL.toFixed(3)} | ${row.judgeMean == null ? "—" : row.judgeMean.toFixed(2)} | ${row.p50} | ${row.p95} | ${row.cost.toFixed(6)} | ${row.prompt} | ${row.completion} | ${(row.outOfScopeRefusalRate * 100).toFixed(1)}% (${row.outOfScope}) |`,
     ),
     "",
   ]
